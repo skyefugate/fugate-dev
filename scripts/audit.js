@@ -124,20 +124,29 @@
     return (hi + 0.05) / (lo + 0.05);
   }
 
-  // Effective page background. Every text element here sits on it.
   var pageBG = parseRGB(getComputedStyle(document.body).backgroundColor);
 
+  // Walk up until we find an opaque background. Text on a card sits on the
+  // card colour, not the page colour, and the two are not the same here.
+  function backgroundBehind(el) {
+    for (var node = el; node && node !== document.documentElement; node = node.parentElement) {
+      var bg = parseRGB(getComputedStyle(node).backgroundColor);
+      if (bg && bg.a > 0.99) return bg;
+    }
+    return pageBG;
+  }
+
   var sampled = [
-    ['.mark', 'top bar'],
-    ['.wordmark', 'wordmark'],
-    ['.deck', 'deck'],
-    ['.card--skye .name .given', 'Skye given name'],
-    ['.card--skye .name .family', 'Skye family name'],
-    ['.card--skye .role', 'Skye role (cyan accent)'],
-    ['.card--carl .role', 'Carl role (amber accent)'],
+    ['.hero', 'hero wordmark'],
+    ['.prompt', 'prompt line'],
+    ['.caret', 'prompt caret (teal)'],
+    ['.card--skye .name', 'Skye name'],
+    ['.card--skye .role', 'Skye role (blue accent)'],
+    ['.card--carl .role', 'Carl role (purple accent)'],
     ['.card--skye .bio', 'bio'],
-    ['.cta', 'CTA label'],
-    ['.elsewhere a', 'secondary link'],
+    ['.card--skye .button--primary', 'primary button (blue)'],
+    ['.card--carl .button--primary', 'primary button (purple)'],
+    ['.card--skye .elsewhere .button', 'secondary button'],
     ['.footer p', 'footer text'],
     ['.footer a', 'footer link']
   ];
@@ -150,8 +159,9 @@
     }
     var cs = getComputedStyle(el);
     var fg = parseRGB(cs.color);
-    var flat = over(fg, pageBG);
-    var r = ratio(flat, pageBG);
+    var bg = backgroundBehind(el);
+    var flat = over(fg, bg);
+    var r = ratio(flat, bg);
     var px = parseFloat(cs.fontSize);
     var bold = parseInt(cs.fontWeight, 10) >= 700;
     // WCAG large text = >=24px, or >=18.66px bold.

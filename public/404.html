@@ -6,11 +6,18 @@
     <title>Not found &mdash; fugate.dev</title>
     <meta name="robots" content="noindex" />
     <meta name="color-scheme" content="dark" />
-    <meta name="theme-color" content="#100e0c" />
+    <meta name="theme-color" content="#020617" />
     <link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png" />
     <link
       rel="preload"
-      href="/assets/fonts/fraunces-var-latin.woff2"
+      href="/assets/fonts/permanent-marker-400-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/assets/fonts/fira-code-var-latin.woff2"
       as="font"
       type="font/woff2"
       crossorigin
@@ -19,32 +26,27 @@
   </head>
 
   <body>
-    <div class="texture" aria-hidden="true"></div>
-    <div class="glow" aria-hidden="true"></div>
-
     <div class="frame">
-      <header class="topbar reveal r1">
-        <p class="mark"><span class="pulse" aria-hidden="true"></span>fugate.dev</p>
-        <p class="mark mark--end">404</p>
-      </header>
-
       <main class="stray">
-        <hr class="rule reveal r2" />
-        <h1 class="wordmark reveal r3">Nothing here</h1>
-        <hr class="rule reveal r2" />
-        <p class="deck reveal r4">
-          This page is a signpost with exactly two directions, and you have found
-          neither of them.
+        <h1 class="hero reveal r1">404</h1>
+
+        <p class="prompt reveal r2">
+          <span class="caret" aria-hidden="true">&gt;</span> That page does not exist
         </p>
-        <ul class="strays reveal r5">
-          <li><a class="cta" href="/">fugate.dev</a></li>
-          <li><a class="cta" href="https://skye.fugate.dev/">skye.fugate.dev</a></li>
-          <li><a class="cta" href="https://carl.fugate.dev/">carl.fugate.dev</a></li>
+
+        <p class="bio reveal r3">
+          There are only two directions here, and you have found neither of them.
+        </p>
+
+        <ul class="strays reveal r4">
+          <li><a class="button button--primary" href="/">fugate.dev</a></li>
+          <li><a class="button" href="https://skye.fugate.dev/">skye.fugate.dev</a></li>
+          <li><a class="button" href="https://carl.fugate.dev/">carl.fugate.dev</a></li>
         </ul>
       </main>
 
-      <footer class="footer reveal r7">
-        <p>Kansas City &middot; father &amp; son</p>
+      <footer class="footer reveal r5">
+        <p>Kansas City &middot; two generations</p>
         <p><a href="https://github.com/skyefugate/fugate-dev">source</a></p>
       </footer>
     </div>

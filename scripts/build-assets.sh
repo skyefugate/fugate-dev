@@ -18,13 +18,15 @@ SRC="_src"
 OUT="public/assets/img"
 mkdir -p "$SRC" "$OUT"
 
-SERIF="/System/Library/Fonts/Supplemental/Georgia Bold.ttf"
-MONO="/System/Library/Fonts/Supplemental/Courier New Bold.ttf"
-INK="#100e0c"
-CREAM="#f2ece1"
-DIM="#a1988c"
-SKYE="#7fc6d4"
-CARL="#d99b4e"
+MARKER="/System/Library/Fonts/Supplemental/Bradley Hand Bold.ttf"
+MONO="/System/Library/Fonts/Monaco.ttf"
+# callisto theme tokens, matching the two personal sites
+BG="#020617"
+FG="#dcdcdc"
+DIM="#8892b0"
+TEAL="#00ccb4"
+SKYE="#01c0f0"
+CARL="#b45eff"
 
 echo "==> fetching source headshots"
 curl -fsS --max-time 60 https://skye.fugate.dev/headshot.jpg -o "$SRC/skye-src.jpg"
@@ -47,35 +49,32 @@ done
 
 echo "==> favicon: F monogram"
 magick -size 512x512 xc:none \
-  -fill "$INK" -draw 'roundrectangle 0,0 511,511 96,96' \
-  -font "$SERIF" -pointsize 340 -fill "$CREAM" -gravity center -annotate +0+14 'F' \
+  -fill "$BG" -draw 'roundrectangle 0,0 511,511 96,96' \
+  -font "$MONO" -pointsize 330 -fill "$FG" -gravity center -annotate +0+6 'F' \
   "$SRC/monogram-512.png"
 magick "$SRC/monogram-512.png" -resize 32x32 "$OUT/favicon-32.png"
 magick "$SRC/monogram-512.png" -resize 192x192 "$OUT/favicon-192.png"
-magick "$SRC/monogram-512.png" -resize 180x180 -background "$INK" -alpha remove -alpha off \
+magick "$SRC/monogram-512.png" -resize 180x180 -background "$BG" -alpha remove -alpha off \
   "$OUT/apple-touch-icon.png"
 
 echo "==> open graph card"
+# Square portraits with a hairline border, matching the cards on the page.
 for p in skye carl; do
-  magick "$SRC/$p-640.png" -resize 240x240 \
-    \( +clone -alpha extract -threshold -1 -negate -fill white -draw 'circle 120,120 120,0' \) \
-    -alpha off -compose copy_opacity -composite "$SRC/$p-circle.png"
+  magick "$SRC/$p-640.png" -resize 240x240 -bordercolor '#2a3350' -border 1 "$SRC/$p-sq.png"
 done
 
-magick -size 1200x630 "xc:$INK" \
-  -fill 'rgba(242,236,225,0.10)' -draw 'rectangle 599,120 600,510' \
-  "$SRC/og-base.png"
-
-magick "$SRC/og-base.png" \
-  "$SRC/skye-circle.png" -geometry +180+150 -composite \
-  "$SRC/carl-circle.png" -geometry +780+150 -composite \
-  -font "$MONO" -pointsize 22 -fill "$DIM" -gravity northwest -annotate +70+56 'F U G A T E . D E V' \
-  -font "$SERIF" -pointsize 46 -fill "$CREAM" -gravity northwest \
-  -annotate +180+430 'Skye Fugate' -annotate +780+430 'Carl Fugate' \
-  -font "$MONO" -pointsize 19 -fill "$SKYE" -gravity northwest -annotate +180+495 'skye.fugate.dev' \
-  -fill "$CARL" -annotate +780+495 'carl.fugate.dev' \
-  -font "$MONO" -pointsize 18 -fill "$DIM" -gravity south \
-  -annotate +0+42 'TWO PEOPLE. TWO SITES. ONE SURNAME.' \
+magick -size 1200x630 "xc:$BG" \
+  "$SRC/skye-sq.png" -geometry +249+180 -composite \
+  "$SRC/carl-sq.png" -geometry +709+180 -composite \
+  -font "$MARKER" -pointsize 86 -fill "$FG" -gravity north -annotate +0+44 'Fugate' \
+  -font "$MONO" -pointsize 22 -fill "$TEAL" -gravity north -annotate -242+148 '>' \
+  -fill "$FG" -gravity north -annotate +14+148 'Which one of us are you looking for?' \
+  -font "$MONO" -pointsize 30 -fill "$FG" -gravity north \
+    -annotate -230+456 'Skye Fugate' -annotate +230+456 'Carl Fugate' \
+  -font "$MONO" -pointsize 19 -gravity north \
+    -fill "$SKYE" -annotate -230+503 'skye.fugate.dev' \
+    -fill "$CARL" -annotate +230+503 'carl.fugate.dev' \
+  -font "$MONO" -pointsize 17 -fill "$DIM" -gravity south -annotate +0+40 'TWO FUGATES. TWO SITES.' \
   -strip -quality 90 "$OUT/og-card.jpg"
 
 echo "==> done"

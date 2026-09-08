@@ -9,6 +9,31 @@ images. No framework, no bundler, no runtime JavaScript, no third-party
 requests. Deployed as a Cloudflare Worker with static assets — the asset router
 serves `public/` and there is nothing to build.
 
+## Design
+
+Tokens, type and component idioms are taken from skye.fugate.dev and
+carl.fugate.dev so this page reads as part of the same family. Those sites
+default to the **callisto** theme (`src/helpers/config.ts` →
+`defaultTheme: 'callisto'`), so this uses its values:
+
+| token | value |
+|---|---|
+| `--background` | `#020617` |
+| `--card-background` | `#0b1021` |
+| `--card-border` | `1px solid #ffffff1a` |
+| `--foreground` | `#dcdcdc` |
+| `--dimmed-text` | `#8892b0` |
+| `--accent` | `#00ccb4` |
+| `--curve-factor` | `4px` |
+
+Same fonts too: Permanent Marker for the name, FiraCode for UI, Red Hat Text for
+prose. Same `> thing` heading idiom and outlined monospace buttons.
+
+One deliberate departure: callisto uses a single teal accent, but this page's
+entire job is telling two people apart, so each card gets its own — Skye
+`#01c0f0`, Carl `#b45eff`. Both come from the shared palette in
+`src/styles/color-palette.scss` (`--accent-3` and `--accent-2`).
+
 ## Layout
 
 ```
@@ -21,7 +46,8 @@ public/                  <- everything in here is uploaded and served
   _redirects             /skye and /carl shortlinks
   robots.txt sitemap.xml
   assets/styles.css      the whole design, including @font-face
-  assets/fonts/*.woff2   self-hosted latin subsets (Fraunces var, Plex Mono)
+  assets/fonts/*.woff2   self-hosted latin subsets (Permanent Marker,
+                         FiraCode var, Red Hat Text var)
   assets/img/*           portraits (webp + jpg, 320/640), favicons, OG card
 scripts/                 asset generation and verification; never deployed
 ```
@@ -87,14 +113,18 @@ block in `<head>` in sync if you change a name, title, or profile URL.
 personal sites, squares them, converts to grayscale, and emits webp + jpg at
 320/640 plus the favicon and OG card. Needs `brew install imagemagick webp`.
 Both photos are forced to grayscale on purpose: one source is black and white
-and the other was colour, and side by side that read as a mistake. The
-per-person accent is applied over the top in CSS as a duotone.
+and the other was colour, and side by side that read as a mistake. The accent
+colour stays on text and borders, not on anyone's face.
 
-**Type** — `scripts/fetch-fonts.py` re-pulls the latin subsets. If you change
-families, update the `unicode-range` in `public/assets/styles.css` to match.
+**Type** — `scripts/fetch-fonts.py` re-pulls the latin subsets from Google
+Fonts. Variable families are requested as a weight range so one file covers
+every weight used.
 
 **Accent colours** — `--skye` and `--carl` in `:root`. Everything per-person
-derives from `--accent`, which each card sets once.
+derives from `--accent-local`, which each card sets once. Note that
+`--accent-local` also has a `:root` default: if a custom property used inside
+`color-mix()` does not resolve, the whole declaration is invalid and gets
+dropped silently. That is how the 404 page briefly lost every button border.
 
 ## Deploying
 

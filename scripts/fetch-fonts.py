@@ -18,12 +18,15 @@ UA = (
 # family spec -> output filename. Fraunces is requested as a weight *range* so
 # Google serves one variable file instead of a static file per weight.
 WANTED = [
-    ("Fraunces:opsz,wght@9..144,300..700", "fraunces-var-latin.woff2"),
-    ("IBM+Plex+Mono:wght@400", "ibm-plex-mono-400-latin.woff2"),
-    ("IBM+Plex+Mono:wght@500", "ibm-plex-mono-500-latin.woff2"),
+    # Same three faces the two personal sites use. Variable families are
+    # requested as a weight *range* so Google serves one file, not one per
+    # weight. Permanent Marker has a single weight.
+    ("Fira+Code:wght@300..700", "fira-code-var-latin.woff2"),
+    ("Red+Hat+Text:wght@300..700", "red-hat-text-var-latin.woff2"),
+    ("Permanent+Marker", "permanent-marker-400-latin.woff2"),
 ]
 
-OUT = pathlib.Path(__file__).resolve().parent.parent / "assets" / "fonts"
+OUT = pathlib.Path(__file__).resolve().parent.parent / "public" / "assets" / "fonts"
 
 
 def latin_woff2(family_spec: str) -> str:

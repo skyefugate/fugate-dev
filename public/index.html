@@ -7,11 +7,11 @@
     <title>Fugate &mdash; Skye &amp; Carl</title>
     <meta
       name="description"
-      content="Two people, one surname, two websites. Skye Fugate builds enterprise cloud and network architecture; Carl Fugate advises on cloud strategy. Pick a direction."
+      content="Two Fugates, two websites. Skye Fugate is an Enterprise Technology Architect; Carl Fugate is a Senior Director and Cloud Technology Advisor. Pick one."
     />
     <link rel="canonical" href="https://fugate.dev/" />
     <meta name="color-scheme" content="dark" />
-    <meta name="theme-color" content="#100e0c" />
+    <meta name="theme-color" content="#020617" />
 
     <!-- Open Graph. Absolute URLs only: crawlers do not resolve relative paths. -->
     <meta property="og:type" content="website" />
@@ -20,7 +20,7 @@
     <meta property="og:title" content="Fugate — Skye &amp; Carl" />
     <meta
       property="og:description"
-      content="Two people, one surname, two websites. Pick a direction."
+      content="Two Fugates, two websites. Pick one."
     />
     <meta property="og:image" content="https://fugate.dev/assets/img/og-card.jpg" />
     <meta property="og:image:type" content="image/jpeg" />
@@ -36,17 +36,24 @@
     <link rel="icon" href="/assets/img/favicon-192.png" sizes="192x192" type="image/png" />
     <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png" />
 
-    <!-- Self-hosted fonts: no third-party requests, and preloaded so type does not reflow. -->
+    <!-- Self-hosted, same faces the two personal sites use. -->
     <link
       rel="preload"
-      href="/assets/fonts/fraunces-var-latin.woff2"
+      href="/assets/fonts/permanent-marker-400-latin.woff2"
       as="font"
       type="font/woff2"
       crossorigin
     />
     <link
       rel="preload"
-      href="/assets/fonts/ibm-plex-mono-400-latin.woff2"
+      href="/assets/fonts/fira-code-var-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/assets/fonts/red-hat-text-var-latin.woff2"
       as="font"
       type="font/woff2"
       crossorigin
@@ -98,62 +105,40 @@
   </head>
 
   <body>
-    <div class="texture" aria-hidden="true"></div>
-    <div class="glow" aria-hidden="true"></div>
-
     <a class="skip" href="#directory">Skip to the two sites</a>
 
     <div class="frame">
-      <header class="topbar reveal r1">
-        <p class="mark"><span class="pulse" aria-hidden="true"></span>fugate.dev</p>
-        <p class="mark mark--end">a signpost</p>
-      </header>
-
       <main>
-        <div class="masthead">
-          <hr class="rule reveal r2" />
-          <h1 class="wordmark reveal r3">Fugate</h1>
-          <hr class="rule reveal r2" />
-          <p class="deck reveal r4">
-            Two people. Two sites. One surname doing double duty.
-          </p>
-        </div>
+        <h1 class="hero reveal r1">Fugate</h1>
+
+        <p class="prompt reveal r2">
+          <span class="caret" aria-hidden="true">&gt;</span> Which one of us are you
+          looking for?
+        </p>
 
         <div class="directory" id="directory">
-          <span class="divider" aria-hidden="true"><i class="glyph"></i></span>
-          <span class="watermark" aria-hidden="true">F</span>
-
           <!-- ------------------------------- Skye ------------------------------- -->
-          <article class="card card--skye reveal r5">
-            <div class="portrait">
-              <picture>
-                <source
-                  type="image/webp"
-                  srcset="
-                    /assets/img/skye-320.webp 320w,
-                    /assets/img/skye-640.webp 640w
-                  "
-                  sizes="(max-width: 720px) 60vw, 232px"
-                />
-                <img
-                  src="/assets/img/skye-320.jpg"
-                  srcset="/assets/img/skye-320.jpg 320w, /assets/img/skye-640.jpg 640w"
-                  sizes="(max-width: 720px) 60vw, 232px"
-                  width="640"
-                  height="640"
-                  alt="Skye Fugate, smiling, in a black and white studio portrait."
-                  fetchpriority="high"
-                  decoding="async"
-                />
-              </picture>
-              <span class="tint" aria-hidden="true"></span>
-            </div>
+          <article class="card card--skye reveal r3">
+            <picture>
+              <source
+                type="image/webp"
+                srcset="/assets/img/skye-320.webp 320w, /assets/img/skye-640.webp 640w"
+                sizes="(max-width: 40rem) 55vw, 200px"
+              />
+              <img
+                class="portrait"
+                src="/assets/img/skye-320.jpg"
+                srcset="/assets/img/skye-320.jpg 320w, /assets/img/skye-640.jpg 640w"
+                sizes="(max-width: 40rem) 55vw, 200px"
+                width="640"
+                height="640"
+                alt="Skye Fugate, smiling, in a black and white studio portrait."
+                fetchpriority="high"
+                decoding="async"
+              />
+            </picture>
 
-            <h2 class="name">
-              <span class="given">Skye</span>
-              <span class="family">Fugate</span>
-            </h2>
-
+            <h2 class="name">Skye Fugate</h2>
             <p class="role">Enterprise Technology Architect</p>
 
             <p class="bio">
@@ -161,69 +146,40 @@
               SecKC, BSidesKC, and DEF CON by night.
             </p>
 
-            <a class="cta" href="https://skye.fugate.dev/">
-              <span class="sr-only">Visit&nbsp;</span>
-              <span class="cta__label">skye.fugate.dev</span>
-              <span class="cta__arrow" aria-hidden="true">&rarr;</span>
+            <a class="button button--primary" href="https://skye.fugate.dev/">
+              <span class="sr-only">Visit&nbsp;</span>skye.fugate.dev
             </a>
 
             <ul class="elsewhere">
+              <li><a class="button" href="https://github.com/skyefugate">GitHub</a></li>
               <li>
-                <a href="https://github.com/skyefugate">
-                  <svg class="i" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-                    <path
-                      fill="currentColor"
-                      d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-2.91-.88-2.91-2.77 0-.79.28-1.45.75-1.96-.07-.2-.33-1 .07-2.06 0 0 .61-.19 2 .75a5.6 5.6 0 0 1 1.52-.21c.52 0 1.04.07 1.52.21 1.39-.95 2-.75 2-.75.4 1.06.14 1.86.07 2.06.47.51.75 1.16.75 1.96 0 1.9-1.14 2.57-2.92 2.77.3.26.56.76.56 1.54 0 1.11-.01 2.01-.01 2.29 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"
-                    />
-                  </svg>
-                  GitHub
-                </a>
-              </li>
-              <li>
-                <a href="https://www.linkedin.com/in/skye-f">
-                  <svg class="i" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-                    <path
-                      fill="currentColor"
-                      d="M13.6 0H2.4A2.4 2.4 0 0 0 0 2.4v11.2A2.4 2.4 0 0 0 2.4 16h11.2a2.4 2.4 0 0 0 2.4-2.4V2.4A2.4 2.4 0 0 0 13.6 0ZM5 13H2.8V6.2H5V13Zm-1.1-7.7a1.3 1.3 0 1 1 0-2.6 1.3 1.3 0 0 1 0 2.6ZM13.2 13H11V9.4c0-.9-.4-1.4-1.1-1.4-.6 0-1 .4-1.2 1-.05.15-.05.4-.05.6V13H6.5V6.2h2.15v1c.3-.5.85-1.15 2.05-1.15 1.45 0 2.5.95 2.5 3V13Z"
-                    />
-                  </svg>
-                  LinkedIn
-                </a>
+                <a class="button" href="https://www.linkedin.com/in/skye-f">LinkedIn</a>
               </li>
             </ul>
           </article>
 
           <!-- ------------------------------- Carl ------------------------------- -->
-          <article class="card card--carl reveal r6">
-            <div class="portrait">
-              <picture>
-                <source
-                  type="image/webp"
-                  srcset="
-                    /assets/img/carl-320.webp 320w,
-                    /assets/img/carl-640.webp 640w
-                  "
-                  sizes="(max-width: 720px) 60vw, 232px"
-                />
-                <img
-                  src="/assets/img/carl-320.jpg"
-                  srcset="/assets/img/carl-320.jpg 320w, /assets/img/carl-640.jpg 640w"
-                  sizes="(max-width: 720px) 60vw, 232px"
-                  width="640"
-                  height="640"
-                  alt="Carl Fugate, smiling, in a black and white studio portrait."
-                  fetchpriority="high"
-                  decoding="async"
-                />
-              </picture>
-              <span class="tint" aria-hidden="true"></span>
-            </div>
+          <article class="card card--carl reveal r4">
+            <picture>
+              <source
+                type="image/webp"
+                srcset="/assets/img/carl-320.webp 320w, /assets/img/carl-640.webp 640w"
+                sizes="(max-width: 40rem) 55vw, 200px"
+              />
+              <img
+                class="portrait"
+                src="/assets/img/carl-320.jpg"
+                srcset="/assets/img/carl-320.jpg 320w, /assets/img/carl-640.jpg 640w"
+                sizes="(max-width: 40rem) 55vw, 200px"
+                width="640"
+                height="640"
+                alt="Carl Fugate, smiling, in a black and white studio portrait."
+                fetchpriority="high"
+                decoding="async"
+              />
+            </picture>
 
-            <h2 class="name">
-              <span class="given">Carl</span>
-              <span class="family">Fugate</span>
-            </h2>
-
+            <h2 class="name">Carl Fugate</h2>
             <p class="role">Senior Director, Cloud Technology Advisor</p>
 
             <p class="bio">
@@ -231,42 +187,22 @@
               badges and artistic PCBs via Badge Pirates.
             </p>
 
-            <a class="cta" href="https://carl.fugate.dev/">
-              <span class="sr-only">Visit&nbsp;</span>
-              <span class="cta__label">carl.fugate.dev</span>
-              <span class="cta__arrow" aria-hidden="true">&rarr;</span>
+            <a class="button button--primary" href="https://carl.fugate.dev/">
+              <span class="sr-only">Visit&nbsp;</span>carl.fugate.dev
             </a>
 
             <ul class="elsewhere">
+              <li><a class="button" href="https://github.com/carlfugate">GitHub</a></li>
               <li>
-                <a href="https://github.com/carlfugate">
-                  <svg class="i" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-                    <path
-                      fill="currentColor"
-                      d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-2.91-.88-2.91-2.77 0-.79.28-1.45.75-1.96-.07-.2-.33-1 .07-2.06 0 0 .61-.19 2 .75a5.6 5.6 0 0 1 1.52-.21c.52 0 1.04.07 1.52.21 1.39-.95 2-.75 2-.75.4 1.06.14 1.86.07 2.06.47.51.75 1.16.75 1.96 0 1.9-1.14 2.57-2.92 2.77.3.26.56.76.56 1.54 0 1.11-.01 2.01-.01 2.29 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"
-                    />
-                  </svg>
-                  GitHub
-                </a>
-              </li>
-              <li>
-                <a href="https://www.linkedin.com/in/carlfugate">
-                  <svg class="i" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-                    <path
-                      fill="currentColor"
-                      d="M13.6 0H2.4A2.4 2.4 0 0 0 0 2.4v11.2A2.4 2.4 0 0 0 2.4 16h11.2a2.4 2.4 0 0 0 2.4-2.4V2.4A2.4 2.4 0 0 0 13.6 0ZM5 13H2.8V6.2H5V13Zm-1.1-7.7a1.3 1.3 0 1 1 0-2.6 1.3 1.3 0 0 1 0 2.6ZM13.2 13H11V9.4c0-.9-.4-1.4-1.1-1.4-.6 0-1 .4-1.2 1-.05.15-.05.4-.05.6V13H6.5V6.2h2.15v1c.3-.5.85-1.15 2.05-1.15 1.45 0 2.5.95 2.5 3V13Z"
-                    />
-                  </svg>
-                  LinkedIn
-                </a>
+                <a class="button" href="https://www.linkedin.com/in/carlfugate">LinkedIn</a>
               </li>
             </ul>
           </article>
         </div>
       </main>
 
-      <footer class="footer reveal r7">
-        <p>Kansas City &middot; father &amp; son &middot; both of us at Netsmart, oddly enough</p>
+      <footer class="footer reveal r5">
+        <p>Kansas City &middot; two generations &middot; both of us at Netsmart, oddly enough</p>
         <p><a href="https://github.com/skyefugate/fugate-dev">source</a></p>
       </footer>
     </div>
