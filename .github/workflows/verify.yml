@@ -30,17 +30,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      # Note: do NOT pass --output or --format in args. lychee-action sets both
-      # itself and errors out with "'output' is set in args as well as in the
-      # action configuration."
+      # Notes:
+      #  * Do NOT pass --output or --format in args. lychee-action sets both
+      #    itself and errors out with "'output' is set in args as well as in
+      #    the action configuration."
+      #  * --root-dir is required or every root-relative path ("/assets/...")
+      #    fails with "Cannot resolve root-relative link".
+      #  * LinkedIn answers CI runners with HTTP 999, so it is excluded rather
+      #    than left to fail forever.
       - uses: lycheeverse/lychee-action@v2
         with:
           args: >-
             --no-progress
             --max-retries 2
             --timeout 20
-            --accept 200,206
-            --exclude ^file://
+            --root-dir ${{ github.workspace }}
             --exclude linkedin\.com
             index.html
           fail: true
