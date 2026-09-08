@@ -4,10 +4,13 @@
 Catches the classic static-site failure: a renamed image that still 200s from
 your browser cache and 404s for everyone else. Run locally or in CI.
 
+The site root is ./public/ — that is what wrangler.jsonc uploads as assets, so
+root-relative paths like "/assets/x.webp" resolve against it, not the repo root.
+
 Checks:
-  * href/src/srcset targets in index.html
-  * url(...) targets in assets/styles.css
-  * the redirect sources in _redirects are real paths or intentional
+  * href/src/srcset targets in every HTML file under public/
+  * url(...) targets in public/assets/styles.css
+  * the files Cloudflare needs in order to serve this thing at all
 """
 
 from __future__ import annotations
@@ -16,9 +19,10 @@ import pathlib
 import re
 import sys
 
-ROOT = pathlib.Path(__file__).resolve().parent.parent
+REPO = pathlib.Path(__file__).resolve().parent.parent
+SITE = REPO / "public"
 
-# Paths that are served but have no file on disk (handled by _redirects).
+# Served, but with no file on disk — handled by public/_redirects.
 REDIRECT_ONLY = {"/skye", "/carl", "/skye/", "/carl/"}
 
 
@@ -45,7 +49,7 @@ def collect_css_refs(css: str) -> set[str]:
     }
 
 
-def resolve(ref: str, base: pathlib.Path) -> pathlib.Path | None:
+def resolve(ref: str, relative_to: pathlib.Path) -> pathlib.Path | None:
     """Map a reference to a file on disk, or None if it isn't a local path."""
     if re.match(r"^(https?:|mailto:|tel:|data:|#)", ref):
         return None
@@ -53,22 +57,34 @@ def resolve(ref: str, base: pathlib.Path) -> pathlib.Path | None:
     if not ref:
         return None
     if ref.startswith("/"):
-        return ROOT / ref.lstrip("/")
-    return base / ref
+        return SITE / ref.lstrip("/")
+    return relative_to / ref
+
+
+def rel(path: pathlib.Path) -> str:
+    try:
+        return str(path.relative_to(REPO))
+    except ValueError:
+        return str(path)
 
 
 def main() -> int:
     problems: list[str] = []
     checked = 0
 
-    targets = [
-        (ROOT / "index.html", collect_html_refs, ROOT),
-        (ROOT / "assets" / "styles.css", collect_css_refs, ROOT / "assets"),
+    if not SITE.is_dir():
+        print(f"FAIL — assets directory missing: {rel(SITE)}")
+        return 1
+
+    targets: list[tuple[pathlib.Path, object, pathlib.Path]] = [
+        (html, collect_html_refs, html.parent) for html in sorted(SITE.rglob("*.html"))
     ]
+    css = SITE / "assets" / "styles.css"
+    targets.append((css, collect_css_refs, css.parent))
 
     for source, collector, base in targets:
         if not source.exists():
-            problems.append(f"missing source file: {source.relative_to(ROOT)}")
+            problems.append(f"missing source file: {rel(source)}")
             continue
         for ref in sorted(collector(source.read_text(encoding="utf-8"))):
             if ref in REDIRECT_ONLY:
@@ -78,24 +94,28 @@ def main() -> int:
                 continue
             checked += 1
             if not path.exists():
-                problems.append(
-                    f"{source.relative_to(ROOT)} -> {ref} (no such file: "
-                    f"{path.relative_to(ROOT) if ROOT in path.parents else path})"
-                )
+                problems.append(f"{rel(source)} -> {ref} (no such file: {rel(path)})")
 
-    # Sanity: the files Cloudflare Pages needs, and the OG image the meta tags promise.
-    for required in (
-        "index.html",
-        "robots.txt",
-        "sitemap.xml",
-        "_redirects",
-        "_headers",
-        "assets/styles.css",
-        "assets/img/og-card.jpg",
-    ):
+    required = [
+        "wrangler.jsonc",
+        "public/index.html",
+        "public/404.html",
+        "public/robots.txt",
+        "public/sitemap.xml",
+        "public/_redirects",
+        "public/_headers",
+        "public/assets/styles.css",
+        "public/assets/img/og-card.jpg",
+    ]
+    for name in required:
         checked += 1
-        if not (ROOT / required).exists():
-            problems.append(f"required file missing: {required}")
+        if not (REPO / name).exists():
+            problems.append(f"required file missing: {name}")
+
+    # The assets directory in wrangler.jsonc must match where the files are.
+    wrangler = (REPO / "wrangler.jsonc").read_text(encoding="utf-8")
+    if '"directory": "./public/"' not in wrangler:
+        problems.append('wrangler.jsonc assets.directory is not "./public/"')
 
     if problems:
         print(f"FAIL — {len(problems)} problem(s) across {checked} references:\n")

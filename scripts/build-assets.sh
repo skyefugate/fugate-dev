@@ -15,7 +15,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 SRC="_src"
-OUT="assets/img"
+OUT="public/assets/img"
 mkdir -p "$SRC" "$OUT"
 
 SERIF="/System/Library/Fonts/Supplemental/Georgia Bold.ttf"

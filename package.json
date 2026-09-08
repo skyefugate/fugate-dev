@@ -1,0 +1,16 @@
+{
+  "name": "fugate-dev",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Landing page for fugate.dev — points visitors at skye.fugate.dev or carl.fugate.dev.",
+  "license": "MIT",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "check": "python3 scripts/check-assets.py",
+    "verify": "bash scripts/verify.sh"
+  },
+  "devDependencies": {
+    "wrangler": "4.129.1"
+  }
+}

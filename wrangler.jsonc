@@ -1,0 +1,19 @@
+{
+  // Static-assets-only Worker: there is no `main`, because there is no Worker
+  // script. Cloudflare's asset router serves ./public/ directly, and parses
+  // public/_headers and public/_redirects (neither is served as an asset).
+  //
+  // Everything outside ./public/ — scripts, README, CI config — is not in the
+  // assets directory and therefore never uploaded. That is the whole reason
+  // the site lives in a subdirectory rather than at the repo root.
+  "name": "fugate-dev",
+  "compatibility_date": "2026-09-07",
+  "assets": {
+    "directory": "./public/",
+    // Serve public/404.html for unmatched paths instead of a bare 404.
+    "not_found_handling": "404-page"
+  },
+  "observability": {
+    "enabled": true
+  }
+}

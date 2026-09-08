@@ -6,7 +6,7 @@ set -euo pipefail
 W="${1:?width}"
 H="${2:?height}"
 OUT="${3:?output png}"
-ROOT="${4:-$(cd "$(dirname "$0")/.." && pwd)}"
+ROOT="${4:-$(cd "$(dirname "$0")/../public" && pwd)}"
 
 CHROME="${CHROME:-/Applications/Google Chrome.app/Contents/MacOS/Google Chrome}"
 PORT="${PORT:-8799}"

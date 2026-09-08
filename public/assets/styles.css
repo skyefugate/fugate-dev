@@ -526,6 +526,28 @@ main {
   flex: none;
 }
 
+/* ------------------------------------------------------------- 9b. 404 page */
+
+.stray {
+  justify-content: center;
+  text-align: center;
+  gap: 0;
+}
+
+.stray .deck {
+  margin-top: clamp(1.1rem, 3vh, 1.75rem);
+}
+
+.strays {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem 1rem;
+  margin: clamp(1.75rem, 4vh, 2.75rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
 /* ----------------------------------------------------------------- 9. footer */
 
 .footer {
