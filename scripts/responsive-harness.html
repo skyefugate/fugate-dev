@@ -1,0 +1,62 @@
+<!doctype html>
+<!--
+  Local-only responsive harness. Headless Chrome refuses to make its window
+  narrower than ~500px, which makes small-viewport screenshots lie. Media
+  queries inside an iframe evaluate against the iframe's width, so this renders
+  genuine narrow layouts.
+
+  Not deployed: scripts/check-assets.py only inspects index.html, and this file
+  lives outside the site root.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>fugate.dev — responsive harness</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 12px;
+        background: #222;
+        font: 12px/1.4 ui-monospace, monospace;
+        color: #eee;
+      }
+      .row {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+      }
+      figure {
+        margin: 0;
+      }
+      figcaption {
+        padding: 4px 0;
+        color: #9f9;
+      }
+      iframe {
+        border: 1px solid #0f0;
+        display: block;
+        background: #100e0c;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="row">
+      <figure>
+        <figcaption>320 x 1500</figcaption>
+        <iframe src="/index.html" width="320" height="1500" title="320"></iframe>
+      </figure>
+      <figure>
+        <figcaption>390 x 1500</figcaption>
+        <iframe src="/index.html" width="390" height="1500" title="390"></iframe>
+      </figure>
+      <figure>
+        <figcaption>430 x 1500</figcaption>
+        <iframe src="/index.html" width="430" height="1500" title="430"></iframe>
+      </figure>
+      <figure>
+        <figcaption>768 x 1500</figcaption>
+        <iframe src="/index.html" width="768" height="1500" title="768"></iframe>
+      </figure>
+    </div>
+  </body>
+</html>

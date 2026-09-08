@@ -1,0 +1,7 @@
+# Intermediate/original images. Multi-megabyte and fully regenerable via
+# scripts/build-assets.sh — no reason to put them in git history.
+_src/
+
+.DS_Store
+node_modules/
+.wrangler/

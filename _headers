@@ -1,0 +1,27 @@
+# Cloudflare Pages headers.
+#
+# The page loads no scripts and no third-party resources, so the CSP can be
+# close to maximally restrictive. If you ever add analytics or a font CDN,
+# this is the file that will (correctly) stop you.
+#
+# Note: HSTS here deliberately omits includeSubDomains. This apex page should
+# not be able to force HSTS onto skye./carl./any-future subdomain. Set that at
+# the Cloudflare zone level if you want it, where it belongs.
+
+/*
+  Content-Security-Policy: default-src 'none'; img-src 'self'; style-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: DENY
+  Permissions-Policy: accelerometer=(), camera=(), geolocation=(), gyroscope=(), microphone=(), payment=(), usb=()
+  Strict-Transport-Security: max-age=31536000
+
+# Fingerprint-free but effectively immutable: these files change name-by-hand.
+/assets/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/img/*
+  Cache-Control: public, max-age=604800
+
+/assets/styles.css
+  Cache-Control: public, max-age=3600

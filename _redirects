@@ -1,0 +1,10 @@
+# Cloudflare Pages redirects.
+# Format: <from> <to> <status>
+#
+# Shortlinks, so "fugate.dev/skye" is a thing you can say out loud.
+/skye   https://skye.fugate.dev/   301
+/carl   https://carl.fugate.dev/   301
+
+# Common near-misses.
+/skye/  https://skye.fugate.dev/   301
+/carl/  https://carl.fugate.dev/   301

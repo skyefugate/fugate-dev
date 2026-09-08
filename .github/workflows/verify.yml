@@ -1,0 +1,46 @@
+name: Verify
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    # Weekly, to catch outbound links that rot on their own.
+    - cron: '17 13 * * 1'
+  workflow_dispatch:
+
+concurrency:
+  group: verify-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  assets:
+    name: Local assets resolve
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Every referenced local file exists
+        run: python3 scripts/check-assets.py
+
+  links:
+    name: Outbound links resolve
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # Note: do NOT pass --output or --format in args. lychee-action sets both
+      # itself and errors out with "'output' is set in args as well as in the
+      # action configuration."
+      - uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --no-progress
+            --max-retries 2
+            --timeout 20
+            --accept 200,206
+            --exclude ^file://
+            --exclude linkedin\.com
+            index.html
+          fail: true
