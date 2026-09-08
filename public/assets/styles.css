@@ -345,24 +345,6 @@ main {
   margin: 0;
 }
 
-.footer a {
-  display: inline-flex;
-  align-items: center;
-  min-height: 1.5rem;
-  padding: 0.35rem 0;
-  color: var(--dimmed-text);
-  text-decoration: underline;
-  text-decoration-color: var(--card-border-color);
-  text-underline-offset: 0.3em;
-  transition: color 0.25s var(--ease), text-decoration-color 0.25s var(--ease);
-}
-
-.footer a:hover,
-.footer a:focus-visible {
-  color: var(--accent);
-  text-decoration-color: var(--accent);
-}
-
 /* --------------------------------------------------------------- 10. 404 page */
 
 .stray {

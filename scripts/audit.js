@@ -147,8 +147,7 @@
     ['.card--skye .button--primary', 'primary button (blue)'],
     ['.card--carl .button--primary', 'primary button (purple)'],
     ['.card--skye .elsewhere .button', 'secondary button'],
-    ['.footer p', 'footer text'],
-    ['.footer a', 'footer link']
+    ['.footer p', 'footer text']
   ];
 
   sampled.forEach(function (pair) {
